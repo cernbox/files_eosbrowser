@@ -7,7 +7,7 @@ $instance = isset($_GET['instance'])? $_GET['instance'] : false;
 
 if($instance)
 {
-	\OC\Cernbox\Storage\EosInstanceManager::setUserInstance($instance);
+	\OC\Files\ObjectStore\EosInstanceManager::setUserInstance($instance);
 }
 else
 {

@@ -2,6 +2,10 @@
 
 use OCA\Files_EosBrowser\Helper;
 
+use OC\Files\ObjectStore\EosUtil;
+use OC\Files\ObjectStore\EosInstanceManager;
+use OC\Files\ObjectStore\EosCmd;
+
 OCP\JSON::checkLoggedIn();
 \OC::$server->getSession()->close();
 
@@ -13,7 +17,7 @@ $instance = isset($_GET['instance'])? $_GET['instance'] : '-2';
 if($instance === '-2')
 {
 	// Print main eos instances page
-	$all = \OC\Cernbox\Storage\EosInstanceManager::getAllMappings();
+	$all = EosInstanceManager::getAllMappings();
 	
 	if(!$all)
 	{
@@ -22,7 +26,7 @@ if($instance === '-2')
 	}
 	
 	$user = \OC_User::getUser();
-	list($uid, $gid) = \OC\Cernbox\Storage\EosUtil::getUidAndGid($user);
+	list($uid, $gid) = EosUtil::getUidAndGid($user);
 	
 	if(!$uid || !$gid)
 	{
@@ -33,7 +37,7 @@ if($instance === '-2')
 	foreach($all as $id => $i)
 	{
 		$path = escapeshellarg($i['user_root_dir']);
-		list($result, $errcode) = \OC\Cernbox\Storage\EosCmd::exec("eos -b -r $uid $gid stat $path", $i['mgm_url']);
+		list($result, $errcode) = EosCmd::exec("eos -b -r $uid $gid stat $path", $i['mgm_url']);
 	
 		if(!$result || $errcode !== 0)
 		{
@@ -57,7 +61,7 @@ if($instance === '-2')
 }
 else
 {
-	$instanceObj = \OC\Cernbox\Storage\EosInstanceManager::getMappingById($instance);
+	$instanceObj = EosInstanceManager::getMappingById($instance);
 	
 	if(!$instanceObj || $instanceObj === NULL)
 	{
@@ -65,7 +69,7 @@ else
 		exit();
 	}
 	
-	\OC\Cernbox\Storage\EosInstanceManager::setUserInstance($instance);
+	EosInstanceManager::setUserInstance($instance);
 	
 	require '/var/www/html/cernbox/apps/files/ajax/list.php';
 }

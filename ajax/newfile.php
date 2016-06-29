@@ -7,7 +7,7 @@ $instance = isset($_POST['instance'])? $_POST['instance'] : false;
 
 if($instance)
 {
-	\OC\Cernbox\Storage\EosInstanceManager::setUserInstance($instance);
+	\OC\Files\ObjectStore\EosInstanceManager::setUserInstance($instance);
 }
 else
 {
