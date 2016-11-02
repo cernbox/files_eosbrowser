@@ -21,7 +21,12 @@ if($instance === '-2')
 	
 	if(!$all)
 	{
-		header("HTTP/1.0 404 Not Found");
+		// there aren't EOS intances
+		$data = [];
+		$data['directory'] = '/';
+		$data['files'] = array();
+		$data['permissions'] = 1;
+		OCP\JSON::success(array('data' => $data));
 		exit();
 	}
 	
