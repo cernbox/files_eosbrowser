@@ -59,8 +59,13 @@ if($instance === '-2')
 	
 	$data = [];
 	$data['directory'] = '/';
-	$data['files'] = Helper::formatRootInstances($all);
+	$files = Helper::formatRootInstances($all);
+	foreach($files as $file) {
+		$file['permissions'] = 1; // RO access
+	}
+	$data['files'] = $files;
 	$data['permissions'] = 1;
+	
 	
 	OCP\JSON::success(array('data' => $data));
 }
