@@ -28,6 +28,7 @@
 				<notnull>true</notnull>
 				<length>50</length>
 			</field>
+			<index>
 				<primary>true</primary>
 				<unique>true</unique>
 				<name>cernbox_eos_instances</name>
