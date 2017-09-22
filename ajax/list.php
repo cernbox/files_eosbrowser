@@ -19,7 +19,7 @@ try {
 	$instanceInfos = [];
 	$instances = $instanceMapper->getAllMappings();
 	foreach($instances as $instance) {
-		$path = 'files/  EOS Instance ' . $instance->getInstanceName();
+		$path = 'files/  eos ' . $instance->getInstanceName();
 		$config = [
 			"name" => $instance->getInstanceName(),
 			"mgmurl" => $instance->getInstanceMGMUrl(),
